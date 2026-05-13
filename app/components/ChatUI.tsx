@@ -28,7 +28,7 @@ export default function MedicalChatUI() {
   const currentTime = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
 
   const BASE_URL =
-  process.env.NEXT_PUBLIC_API_URL || "http://127.0.0.1:8000";
+  process.env.NEXT_PUBLIC_API_URL || "https://medirag-backend.onrender.com";
 
   const sendMessage = async () => {
     if(!input.trim()) return;
