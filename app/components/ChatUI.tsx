@@ -100,7 +100,7 @@ export default function MedicalChatUI() {
 
 
       {/* Chat UI */}
-      <div className="flex-1 overflow-y-auto pt-12 px-6 md:px-36 space-y-8 relative z-10">
+      <div className="flex-1 overflow-y-auto pt-12 px-4 sm:px-8 md:px-16 lg:px-36 space-y-8 relative z-10">
         {messages.map((msg, idx) => (
           <motion.div
             key={idx}
@@ -109,7 +109,7 @@ export default function MedicalChatUI() {
             className={`flex ${msg.sender === "user" ? "justify-end" : "justify-start"}`}
           >
             <div
-              className={`max-w-[70%] p-5 rounded-3xl shadow-lg text-base break-words prose prose-invert ${
+              className={`max-w-[85%] md:max-w-[70%] p-4 sm:p-5 rounded-3xl shadow-lg text-sm sm:text-base break-words prose prose-invert ${
                 msg.sender === "user"
                   ? "text-white dark:text-black border bg-black/60 dark:bg-white/70 rounded-br-none"
                   : "text-white dark:text-black border bg-black/60 dark:bg-white/70 rounded-bl-none"

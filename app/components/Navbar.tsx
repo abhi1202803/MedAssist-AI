@@ -12,7 +12,7 @@ export default function Navbar() {
       <div className="flex items-center justify-between px-4 sm:px-8 py-3 relative">
         
         {/* Left Spacer (for balance) */}
-        <div className="w-10 sm:w-16" />
+        <div className="flex-1" />
 
         {/* Center Logo */}
         <motion.div
@@ -22,7 +22,7 @@ export default function Navbar() {
             textShadow: "0 0 12px #5eead4",
           }}
           transition={{ duration: 0.3 }}
-          className="absolute left-1/2 transform -translate-x-1/2 flex items-center cursor-pointer"
+          className="flex flex-shrink-0 items-center justify-center cursor-pointer"
         >
           <Stethoscope className="w-7 h-7 sm:w-9 sm:h-9 mr-2 text-teal-400 dark:text-black" />
           <h1 className="text-lg sm:text-xl font-semibold text-teal-400 dark:text-black">
@@ -31,7 +31,7 @@ export default function Navbar() {
         </motion.div>
 
         {/* Right Icons */}
-        <div className="flex items-center gap-3 sm:gap-5 ml-auto">
+        <div className="flex flex-1 items-center justify-end gap-3 sm:gap-5">
           <button
             onClick={toggleTheme}
             className="p-2 sm:p-2.5 rounded-full transition"
