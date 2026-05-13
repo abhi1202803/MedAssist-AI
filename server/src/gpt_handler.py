@@ -72,11 +72,11 @@ retriever = docsearch.as_retriever(
 
 # HUGGING FACE CHAT
 
-HF_MODEL = "HuggingFaceH4/zephyr-7b-beta"
-chat_client = InferenceClient(model=HF_MODEL, token=HF_API_KEY)
+HF_API_URL = "https://router.huggingface.co/v1/chat/completions"
+HF_MODEL = "Qwen/Qwen3-Coder-30B-A3B-Instruct"
 
 def ask_huggingface(prompt: str, model=HF_MODEL, max_tokens=500) -> str:
-    """ Send prompt to Hugging Face Chat API. """
+    """ Send prompt to Hugging Face Chat API using Qwen3 model. """
 
     # Convert LangChain's prompt objects to string
     if not isinstance(prompt, str):
@@ -85,14 +85,31 @@ def ask_huggingface(prompt: str, model=HF_MODEL, max_tokens=500) -> str:
         except Exception:
             prompt = str(prompt)
 
-    messages = [
-        {"role": "system", "content": system_prompt},
-        {"role": "user", "content": prompt},
-    ]
+    headers = {
+        "Authorization": f"Bearer {HF_API_KEY}",
+        "Content-Type": "application/json",
+    }
+
+    payload = {
+        "model": model,
+        "messages": [
+            {"role": "system", "content": system_prompt},
+            {"role": "user", "content": prompt},
+        ],
+        "max_tokens": max_tokens
+    }
 
     try:
-        response = chat_client.chat_completion(messages=messages, max_tokens=max_tokens)
-        return response.choices[0].message.content
+        response = requests.post(HF_API_URL, headers=headers, json=payload)
+        response.raise_for_status()
+        data = response.json()
+
+        # Check structured response
+        if "choices" in data and len(data["choices"]) > 0:
+            return data["choices"][0]["message"]["content"]
+        else:
+            return "No response content available from Hugging Face."
+
     except Exception as e:
         return f"Error calling Hugging Face API: {e}"
 
